@@ -1,30 +1,17 @@
 const dom = {
   numInput: document.getElementById("number"),
   buttons: document.querySelectorAll(".input"),
-  randomNum: document.getElementById("randomNum"),
+  randomNumber: document.getElementById("randomNumber"),
   clear: document.getElementById("clear"),
   submit: document.getElementById("submit"),
   results: document.getElementById("results"),
 };
 const results = [];
-function removeListeners() {
-  dom.buttons.forEach((item) => {
-    item.removeEventListener("click", (e) => {
-      dom.numInput.innerText =
-        dom.numInput.innerText + dom.buttons[i].innerHTML;
-    });
-  });
-  dom.clear.removeEventListener("click", (e) => {
-    dom.numInput.innerText = "";
-  });
-  document.submit.removeEventListener("click", (e) => {
-    checkProblem(randomNum, dom.numInput.innerText);
-  });
-}
+
 function checkProblem(num, input) {
   let inputNum = eval(input);
   dom.randomNum.innerHTML = dom.randomNum.innerHTML.replace("?", inputNum);
-  console.log(inputNum);
+  console.log(inputNum, num);
   if (num === inputNum) {
     console.log("GOOD JOB ");
     dom.randomNum.innerHTML += " TRUE";
@@ -48,19 +35,19 @@ function simulation(results) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
   const randomNum = getRandomIntInclusive(1, 18);
-  dom.randomNum.innerHTML = randomNum + " = ?";
-  dom.buttons.forEach((item) => {
-    item.addEventListener("click", (e) => {
-      dom.numInput.innerText =
-        dom.numInput.innerText + dom.buttons[i].innerHTML;
-    });
-  });
-  dom.clear.addEventListener("click", (e) => {
-    dom.numInput.innerText = "";
-  });
-  dom.submit.addEventListener("click", (e) => {
-    checkProblem(randomNum, dom.numInput.innerText);
-  });
+  dom.randomNumber.innerHTML = randomNum + " = ?";
 }
 
+
 simulation(results);
+dom.buttons.forEach((item) => {
+  item.addEventListener("click", (e) => {
+    dom.numInput.innerText = dom.numInput.innerText + item.innerHTML;
+  });
+});
+dom.clear.addEventListener("click", (e) => {
+  dom.numInput.innerText = "";
+});
+dom.submit.addEventListener("click", (e) => {
+  checkProblem(randomNum, dom.numInput.innerText);
+});
