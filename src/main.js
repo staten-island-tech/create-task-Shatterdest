@@ -5,10 +5,11 @@ const dom = {
   clear: document.getElementById("clear"),
   submit: document.getElementById("submit"),
   results: document.getElementById("results"),
+  history: document.getElementById("show"),
 };
-const results = [];
+const answers = [];
 
-function simulation(results) {
+function simulation() {
   let randomNum;
   dom.buttons.forEach((item) => {
     item.addEventListener("click", (e) => {
@@ -20,6 +21,22 @@ function simulation(results) {
   });
   dom.submit.addEventListener("click", (e) => {
     checkProblem(randomNum, dom.numInput.innerText);
+  });
+  dom.history.addEventListener("click", (e) => {
+    console.log(dom.history.value);
+    if ((dom.history.value === "show")) {
+      console.log("showign")
+      answers.forEach((item) => {
+        dom.results.insertAdjacentHTML("beforeend", `<h1>${item}</h1>`);
+      });
+      dom.history.value = "hide";
+      dom.history.innerText = 'showing history'
+    } else if ((dom.history.value === "hide")) {
+      console.log("hiding")
+      dom.results.innerHTML = ''
+      dom.history.value = "show";
+      dom.history.innerText = 'hiding history'
+    }
   });
   function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -40,19 +57,13 @@ function simulation(results) {
     console.log(inputNum, num);
     if (num === inputNum) {
       console.log("GOOD JOB ");
-      dom.randomNumber.innerHTML += " TRUE";
-      dom.results.insertAdjacentHTML(
-        "beforeend",
-        `<h1>${dom.randomNumber.innerHTML}</h1>`
-      );
+      answers.push((dom.randomNumber.innerHTML += " TRUE"));
+      dom.numInput.innerText = "";
       newNumber();
     } else {
       console.log("GO BACK TO 5THG RADE");
-      dom.randomNumber.innerHTML += " FALSE";
-      dom.results.insertAdjacentHTML(
-        "beforeend",
-        `<h1>${dom.randomNumber.innerHTML}</h1>`
-      );
+      answers.push((dom.randomNumber.innerHTML += " FALSE"));
+      dom.numInput.innerText = "";
       newNumber();
     }
   }
