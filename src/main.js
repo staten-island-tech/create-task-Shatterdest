@@ -7,9 +7,10 @@ const dom = {
   results: document.getElementById("results"),
   history: document.getElementById("show"),
 };
-const answers = [];
+
 
 function simulation() {
+  const answers = [];
   let randomNum;
   dom.buttons.forEach((item) => {
     item.addEventListener("click", (e) => {
@@ -68,5 +69,4 @@ function simulation() {
     }
   }
 }
-
-simulation(results);
+simulation();
